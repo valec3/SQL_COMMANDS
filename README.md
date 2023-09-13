@@ -19,6 +19,7 @@
     - [TRIGGERS](#triggers)
     - [VIEWS](#views)
 
+
 ## Connect to MySQL
 Conectar a MySQL desde la terminal.
 
