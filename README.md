@@ -14,10 +14,12 @@
     - [INSERT](#insert)
     - [UPDATE](#update)
     - [DELETE](#delete)
+    - [GROUP BY](#group-by)
     - [JOINS](#joins)
     - [UNION](#union)
     - [TRIGGERS](#triggers)
     - [VIEWS](#views)
+  - [Ejemplos](#ejemplos)
 
 
 ## Connect to MySQL
@@ -350,6 +352,153 @@ Elimina registros de una tabla.
     DELETE FROM tabla WHERE columna1 = 1;
     ``` 
 
+### GROUP BY
+- GROUP BY:
+Agrupa registros que tienen el mismo valor en una columna.
+    ```sql
+    SELECT columna1, columna2 
+    FROM tabla 
+    GROUP BY columna1;
+    ```
+- HAVING:
+Filtra los registros de un grupo.
+    ```sql
+    SELECT columna1, columna2 
+    FROM tabla 
+    GROUP BY columna1 
+    HAVING columna1 > 1;
+    ```
+- ORDER BY:
+Ordena los registros de una consulta.
+    ```sql
+    SELECT columna1, columna2 
+    FROM tabla 
+    ORDER BY columna1;
+    ```
+- ORDER BY DESC:
+Ordena los registros de una consulta en orden descendente.
+    ```sql
+    SELECT columna1, columna2 
+    FROM tabla 
+    ORDER BY columna1 DESC;
+    ```
+- ORDER BY ASC:
+Ordena los registros de una consulta en orden ascendente.
+    ```sql
+    SELECT columna1, columna2 
+    FROM tabla 
+    ORDER BY columna1 ASC;
+    ``
+- LIMIT:
+Limita el número de registros de una consulta.
+    ```sql
+    SELECT columna1, columna2 
+    FROM tabla 
+    LIMIT 5;
+    ``
+- LIMIT OFFSET:
+Limita el número de registros de una consulta y omite los primeros registros.
+    ```sql
+    SELECT columna1, columna2 
+    FROM tabla 
+    LIMIT 5 OFFSET 2;
+    ``
+- COUNT:
+Cuenta el número de registros de una consulta.
+    ```sql
+    SELECT COUNT(*) FROM tabla;
+    ``
+- SUM:
+Calcula la suma de los valores de una columna.
+    ```sql
+    SELECT SUM(columna1) FROM tabla;
+    ``
+- AVG:
+Calcula el promedio de los valores de una columna.
+    ```sql
+    SELECT AVG(columna1) FROM tabla;
+    ``
+- MAX:
+Calcula el valor máximo de una columna.
+    ```sql
+    SELECT MAX(columna1) FROM tabla;
+    ``
+- MIN:
+Calcula el valor mínimo de una columna.
+    ```sql
+    SELECT MIN(columna1) FROM tabla;
+    ``
+- UCASE:
+Convierte una columna a mayúsculas.
+    ```sql
+    SELECT UCASE(columna1) FROM tabla;
+    ```
+- LCASE:
+Convierte una columna a minúsculas.
+    ```sql
+    SELECT LCASE(columna1) FROM tabla;
+    ```
+- MID:
+Extrae caracteres de una columna.
+    ```sql
+    SELECT MID(columna1, 1, 3) FROM tabla;
+    ```
+- LEN:
+Calcula la longitud de una columna.
+    ```sql
+    SELECT LEN(columna1) FROM tabla;
+    ```
+- ROUND:
+Redondea los valores de una columna.
+    ```sql
+    SELECT ROUND(columna1, 2) FROM tabla;
+    ```
+- NOW:
+Devuelve la fecha y hora actual.
+    ```sql
+    SELECT NOW() FROM tabla;
+    ```
+- FORMAT:
+Formatea los valores de una columna.
+    ```sql
+    SELECT FORMAT(columna1, 2) FROM tabla;
+    ```
+- CONCAT:
+Concatena los valores de dos o más columnas.
+    ```sql
+    SELECT CONCAT(columna1, columna2) FROM tabla;
+    ```
+- IF:
+Devuelve un valor si una condición es verdadera y otro valor si es falsa.
+    ```sql
+    SELECT IF(columna1 = 1, 'verdadero', 'falso') FROM tabla;
+    ```
+- IFNULL:
+Devuelve un valor si una columna es nula y otro valor si no lo es.
+    ```sql
+    SELECT IFNULL(columna1, 'nulo') FROM tabla;
+    ```
+- CASE:
+Devuelve un valor si una condición es verdadera y otro valor si es falsa.
+    ```sql
+    SELECT CASE columna1 
+        WHEN 1 THEN 'uno' 
+        WHEN 2 THEN 'dos' 
+        ELSE 'otro' 
+    END 
+    FROM tabla;
+    ```
+- CASE WHEN:
+Devuelve un valor si una condición es verdadera y otro valor si es falsa.
+    ```sql
+    SELECT CASE 
+        WHEN columna1 = 1 THEN 'uno' 
+        WHEN columna1 = 2 THEN 'dos' 
+        ELSE 'otro' 
+    END 
+    FROM tabla;
+    ```
+    
 ### JOINS
 - INNER JOIN:
 Combina registros de dos tablas.
@@ -445,3 +594,23 @@ Muestra los disparadores de una base de datos.
 - WITH CHECK OPTION:
 - WITH READ ONLY:
 - WITH CASCADED CHECK OPTION:
+  
+## Ejemplos
+SELECT 
+    COUNT(*) AS cantidad_usuarios,
+    SUBSTRING_INDEX(Browser, ' ', 1) AS navegador,
+    Tipo
+FROM logLogins
+WHERE Fecha BETWEEN '2018-12-10' AND '2018-12-11'
+GROUP BY navegador, Tipo
+ORDER BY navegador;
+
+
+SELECT 
+    SUBSTRING_INDEX(Browser, ' ', 1) AS navegador,
+    Tipo,
+    COUNT(*) AS cantidad_usuarios
+FROM logLogins
+WHERE Fecha BETWEEN '2018-12-15' AND '2018-12-21'
+GROUP BY navegador, Tipo
+ORDER BY navegador;
